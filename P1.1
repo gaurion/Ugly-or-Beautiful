@@ -1,0 +1,87 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+import java.util.HashMap;
+import java.util.Map;
+
+
+public class Solution {
+    
+        static String checkUnique(int[] a)
+    {
+        int i;
+        for (i = 0; i < a.length; i++)
+        {
+            int count = 0;
+            for (int j = 0; j < a.length; j++) {
+                if (a[i] == a[j])
+                    count++;
+            }
+            if (count > 1)
+                return "Ugly";
+        }
+        return "Beautiful";
+    }
+
+    
+    static String checkExceed(int[] a)
+    {
+        int i;
+        for (i = 0; i < a.length; i++) {
+            if(a[i]>a.length || a[i]<1)
+                return "Ugly";
+        }
+        return "Beautiful";
+    }
+    
+    static String checkSort(int[] a)
+    {
+        String result="Beautiful";
+        for(int i=1;i<a.length;i++)
+        {
+        if(a[i-1]<a[i])
+            result="Ugly";
+        else
+            result="Beautiful";
+        }
+        return result;
+    }
+    
+    static String uglyOrBeautiful(int[] a) {
+    // Complete this function
+    String result="Beautiful";
+    result=checkUnique(a);
+        if(result=="Ugly")
+            return result;
+        else
+        {
+            result=checkSort(a);
+            if(result=="Ugly")
+                return result;
+            else
+                result=checkExceed(a);
+         }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int q = in.nextInt();
+        if(q<1)
+            return 0;
+        for(int a0 = 0; a0 < q; a0++){
+            int n = in.nextInt();
+            if(n<1)
+                return 0;
+            int[] a = new int[n];
+            for(int a_i = 0; a_i < n; a_i++){
+                a[a_i] = in.nextInt();
+            }
+            String result = uglyOrBeautiful(a);
+            System.out.println(result);
+        }
+        in.close();
+    }
+}
